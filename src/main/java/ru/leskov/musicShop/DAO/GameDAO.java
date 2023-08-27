@@ -1,4 +1,4 @@
 package ru.leskov.musicShop.DAO;
 
-public class MusicDAO {
+public class GameDAO {
 }

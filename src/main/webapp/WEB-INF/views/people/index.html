@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test index</title>
+</head>
+<body>
+<br><br>
+<br>
+<div style="text-align: center;">
+    <div th:each="person : ${people}">
+        <a th:href="@{/people/{id}(id=${person.getId_person()})}"
+           th:text="${person.getFullName() + ' , ' + person.getYearsOfBirthday()}"></a>
+    </div>
+
+</div>
+</body>
+</html>
