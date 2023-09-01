@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 
 public class Game {
 
-    private int id;
+    private int id_game;
     @Size(min = 2, max = 50,message = "Title must be between 2 and 50")
     @NotEmpty
     private String title;
@@ -25,12 +25,12 @@ public class Game {
         this.year = year;
     }
 
-    public int getId() {
-        return id;
+    public int getId_game() {
+        return id_game;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_game(int id_game) {
+        this.id_game = id_game;
     }
 
     public String getTitle() {
