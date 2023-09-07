@@ -10,5 +10,9 @@
 <p th:text="${game.getYear()}">value</p>
 <p th:text="${game.getId_game()}">value</p>
 
+<br<br>
+
+<a th:href="@{/games/{id}/edit(id=${game.getId_game()})}">EDIT</a>
+
 </body>
 </html>

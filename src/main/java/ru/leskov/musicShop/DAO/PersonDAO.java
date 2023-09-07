@@ -32,4 +32,15 @@ public class PersonDAO {
     public List<Person> index() {
         return jdbcTemplate.query("SELECT * FROM person", new BeanPropertyRowMapper<>(Person.class));
     }
+
+    public void save(Person person) {
+        jdbcTemplate.update("INSERT INTO Person (fullName,yearsOfBirthday) VALUES(?,?)",
+                person.getFullName(),person.getYearsOfBirthday());
+    }
+
+    public void update(int id, Person person) {
+        jdbcTemplate.update("UPDATE Person SET fullName=?, yearsOfBirthday=? WHERE id_person=?",
+                person.getFullName(),person.getYearsOfBirthday(),id);
+
+    }
 }

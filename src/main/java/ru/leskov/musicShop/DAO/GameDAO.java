@@ -29,4 +29,16 @@ public class GameDAO {
                 new BeanPropertyRowMapper<>(Game.class)).stream().findAny();
         return optionalGame.orElse(null);
     }
+
+    public void save(Game game) {
+        jdbcTemplate.update("INSERT INTO game (title, publisher, year) VALUES(?,?,?)",
+                game.getTitle(), game.getPublisher(), game.getYear());
+        System.out.println("ADD HAS BEEN DONE");
+        //insert into game(title, publisher, year, id_person) VALUES
+    }
+
+    public void update(int id, Game game) {
+        jdbcTemplate.update("UPDATE game SET title=?, publisher=?, year=? WHERE id_game=?",
+                game.getTitle(), game.getPublisher(), game.getYear(),id);
+    }
 }
