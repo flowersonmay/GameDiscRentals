@@ -68,4 +68,9 @@ public class GameController {
         gameDAO.update(id,game);
         return "redirect:/games";
     }
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id){
+        gameDAO.delete(id);
+        return "redirect:/games";
+    }
 }

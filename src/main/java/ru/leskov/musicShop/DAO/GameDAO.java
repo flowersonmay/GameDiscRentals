@@ -41,4 +41,8 @@ public class GameDAO {
         jdbcTemplate.update("UPDATE game SET title=?, publisher=?, year=? WHERE id_game=?",
                 game.getTitle(), game.getPublisher(), game.getYear(),id);
     }
+
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM game WHERE id_game=?",id);
+    }
 }
