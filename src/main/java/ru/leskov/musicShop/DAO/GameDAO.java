@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.leskov.musicShop.models.Game;
+import ru.leskov.musicShop.models.Person;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,5 +45,19 @@ public class GameDAO {
 
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM game WHERE id_game=?",id);
+    }
+
+    public Optional<Person> getGameOwner(int id) {
+        return jdbcTemplate.query(
+                "select person.* from game join  person on person.id_person = game.person_id\n" +
+                "where id_game=?",new Object[]{id},new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+    }
+
+    public void release(int id){
+        jdbcTemplate.update("UPDATE game SET person_id=NULL WHERE id_game=?", id);
+    }
+
+    public void assign(int id, Person selectedPerson) {
+        jdbcTemplate.update("UPDATE game set person_id=? WHERE id_game=?",selectedPerson.getId_person(),id);
     }
 }

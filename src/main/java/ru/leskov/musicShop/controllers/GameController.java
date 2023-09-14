@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.leskov.musicShop.DAO.GameDAO;
 import ru.leskov.musicShop.DAO.PersonDAO;
 import ru.leskov.musicShop.models.Game;
+import ru.leskov.musicShop.models.Person;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/games")
@@ -32,8 +34,16 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public String show(@PathVariable("id") int id, Model model,
+                       @ModelAttribute("person")Person person) {
         model.addAttribute("game", gameDAO.show(id));
+
+        Optional<Person> gameOwner = gameDAO.getGameOwner(id);
+        if (gameOwner.isPresent()){
+            model.addAttribute("owner",gameOwner.get());
+        }else {
+            model.addAttribute("people", personDAO.index());
+        }
         return "games/show";
     }
 
@@ -72,5 +82,15 @@ public class GameController {
     public String delete(@PathVariable("id") int id){
         gameDAO.delete(id);
         return "redirect:/games";
+    }
+    @PatchMapping("/{id}/release")
+    public String release(@PathVariable("id") int id){
+        gameDAO.release(id);
+        return "redirect:/games/"+id;
+    }
+    @PatchMapping("/{id}/assign")
+    public String assign(@PathVariable("id") int id, @ModelAttribute("person") Person selectedPerson){
+        gameDAO.assign(id,selectedPerson);
+        return "redirect:/games/"+id;
     }
 }

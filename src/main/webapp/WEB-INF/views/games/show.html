@@ -5,16 +5,42 @@
     <title>GAME INFO</title>
 </head>
 <body>
-<p th:text="${game.getTitle()}">value</p>
-<p th:text="${game.getPublisher()}">value</p>
+<p th:text="${game.getTitle()}  + ', ' + ${game.getPublisher()}" >value</p>
 <p th:text="${game.getYear()}">value</p>
-<p th:text="${game.getId_game()}">value</p>
+<!------------------------------------------------->
 
 <br>
+<div th:if="${owner}">
+    <span>This game right now play : </span>
+    <span th:text="${owner.getFullName()}">Person name</span>
+    <form th:method="PATCH" th:action="@{/games/{id}/release(id=${game.getId_game()})}">
+        <input type="submit" value="release the game">
+    </form>
+</div>
 <br>
+<br>
+<!------------------------------------------------->
+
+
+<div th:if="${people}">
+    <span>This game is free. Who wants to play?</span>
+    <form th:method="PATCH" th:action="@{/games/{id}/assign(id=${game.getId_game()})}">
+        <label for="person">Choose person</label>
+        <select th:object="${person}" th:field="*{id_person}" id="person">
+            <option th:each="person : ${people}"
+                    th:value="${person.getId_person()}"
+                    th:text="${person.getFullName()}">
+            </option>
+        </select>
+        <input type="submit" value="Assign game"/>
+    </form>
+</div>
+<!------------------------------------------------->
 
 <a th:href="@{/games/{id}/edit(id=${game.getId_game()})}">EDIT</a>
 <br><br>
+<!------------------------------------------------->
+
 <form th:method="DELETE" th:action="@{/games/{id}(id=${game.getId_game()})}">
     <input type="submit" value="Delete"/>
 </form>

@@ -5,9 +5,7 @@
     <title>PERSON INFO</title>
 </head>
 <body>
-<p th:text="${person.getFullName()}">value</p>
-<p th:text="${person.getYearsOfBirthday()}">value</p>
-<p th:text="${person.getId_person()}">value</p>
+<p th:text="${person.getFullName()} + ', ' + ${person.getYearsOfBirthday()}">value</p>
 <!------------------------------------------------->
 <div th:if="${games.isEmpty()}">
     <p>Person has been put no one game</p>
