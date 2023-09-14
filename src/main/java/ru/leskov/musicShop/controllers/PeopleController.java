@@ -6,10 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.leskov.musicShop.DAO.GameDAO;
 import ru.leskov.musicShop.DAO.PersonDAO;
-import ru.leskov.musicShop.models.Game;
 import ru.leskov.musicShop.models.Person;
-import sun.java2d.loops.Blit;
 
 import javax.validation.Valid;
 
@@ -18,10 +17,12 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final GameDAO gameDAO;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO) {
+    public PeopleController(PersonDAO personDAO, GameDAO gameDAO) {
         this.personDAO = personDAO;
+        this.gameDAO = gameDAO;
     }
 
     //people/index.html
@@ -35,6 +36,7 @@ public class PeopleController {
     public String show(@PathVariable("id") int id,
                        Model model) {
         model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("games", personDAO.getGamesByPersonId(id));
         return "people/show";
     }
 

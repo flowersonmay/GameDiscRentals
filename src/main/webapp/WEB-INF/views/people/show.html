@@ -8,9 +8,25 @@
 <p th:text="${person.getFullName()}">value</p>
 <p th:text="${person.getYearsOfBirthday()}">value</p>
 <p th:text="${person.getId_person()}">value</p>
+<!------------------------------------------------->
+<div th:if="${games.isEmpty()}">
+    <p>Person has been put no one game</p>
+    <hr/>
+</div>
 <br>
+<div th:if="${!games.isEmpty()}">
+    <hr/>
+    <b>Games:</b>
+    <br>
+    <table th:each="game : ${games}">
+        <tr th:text="${game.getTitle() + ', ' + game.getPublisher() + ', ' + game.getYear()}">game</tr>
+    </table>
+    <hr/>
+</div>
+<!------------------------------------------------->
 <a th:href="@{/people/{id}/edit(id=${person.getId_person()})}">EDIT</a>
 <br>
+<!------------------------------------------------->
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId_person()})}">
     <input type="submit" value="Delete"/>
 </form>
